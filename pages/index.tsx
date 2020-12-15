@@ -1,15 +1,38 @@
-import Link from 'next/link'
-import Layout from '../components/Layout'
+import { gql, useQuery } from "@apollo/client";
+import { initializeApollo } from "api/apolloClient";
 
-const IndexPage = () => (
-  <Layout title="Home | Next.js + TypeScript Example">
-    <h1>Hello Next.js 👋</h1>
-    <p>
-      <Link href="/about">
-        <a>About</a>
-      </Link>
-    </p>
-  </Layout>
-)
+const GET_MARKETS = gql`
+ query {
+    markets {
+      id
+      name
+      description
+    }
+  }
+`;
 
-export default IndexPage
+const GET_HELLO = gql`
+  query get_hello {
+    hello
+  }
+`;
+
+const IndexPage = () => {
+  const { data } = useQuery(GET_MARKETS);
+
+  return <div>{JSON.stringify(data, null, 2)}</div>;
+};
+
+export default IndexPage;
+
+export async function getServerSideProps() {
+  const apolloClient = initializeApollo();
+
+  await apolloClient.query({ query: GET_MARKETS });
+
+  return {
+    props: {
+      initialApolloState: apolloClient.cache.extract(),
+    },
+  };
+}

@@ -7,12 +7,21 @@
     "start": "next start",
     "type-check": "tsc"
   },
+  "prisma": {
+    "schema": "api/prisma/schema.prisma"
+  },
   "dependencies": {
+    "@apollo/client": "^3.3.6",
+    "@nexus/schema": "^0.19.2",
+    "@prisma/client": "^2.13.0",
+    "apollo-server-micro": "^2.19.0",
     "next": "latest",
+    "nexus-plugin-prisma": "^0.26.0",
     "react": "^16.12.0",
     "react-dom": "^16.12.0"
   },
   "devDependencies": {
+    "@prisma/cli": "^2.13.0",
     "@types/node": "^12.12.21",
     "@types/react": "^16.9.16",
     "@types/react-dom": "^16.9.4",
